@@ -1,0 +1,134 @@
+<?php
+include('database.php'); // Include your existing database connection
+
+// Fetch all services
+$result = $conn->query("SELECT * FROM services");
+
+if (!$result) {
+    die("Query failed: " . $conn->error); // Check for query execution error
+}
+
+
+// Query to fetch all data from the users table
+$sql = "SELECT users_id, first_name, middle_name, last_name, email FROM users";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . $conn->error); // Output the error message
+}
+
+$users = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row; // Fetch all rows into the users array
+    }
+} else {
+    echo "No users found.";
+}
+
+// Handle delete action
+if (isset($_GET['delete'])) {
+    $user_id = intval($_GET['delete']);
+    $delete_sql = "DELETE FROM users WHERE users_id = ?";
+    $stmt = $conn->prepare($delete_sql);
+    $stmt->bind_param("i", $user_id);
+    if ($stmt->execute()) {
+        header("Location: acc_management.php"); // Redirect to the same page
+        exit();
+    } else {
+        echo "Error deleting user: " . $stmt->error;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Account Management</title>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <?php include("./nav/sidebar.php"); ?>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <?php include ("./nav/navbar.php"); ?>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+		<div class="container">
+    <h1>Services Management</h1>
+
+    <!-- Form to Add/Edit Service -->
+    <form method="POST">
+        <input type="hidden" name="service_id" id="service_id" value="">
+        <div>
+            <label for="service_name">Service Name:</label>
+            <input type="text" name="service_name" id="service_name" required>
+        </div>
+        <div>
+            <label for="service_desc">Service Description:</label>
+            <textarea name="service_desc" id="service_desc"></textarea>
+        </div>
+        <div>
+            <label for="service_price">Service Price:</label>
+            <input type="number" name="service_price" id="service_price" step="0.01" required>
+        </div>
+        <div>
+            <label for="service_image">Service Image:</label>
+            <input type="text" name="service_image" id="service_image">
+        </div>
+        <button type="submit">Save Service</button>
+    </form>
+
+    <h2>All Services</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($service = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($service['service_name']); ?></td>
+                    <td><?php echo htmlspecialchars($service['service_desc']); ?></td>
+                    <td><?php echo htmlspecialchars($service['service_price']); ?></td>
+                    <td><?php echo htmlspecialchars($service['service_image']); ?></td>
+                    <td>
+                        <a href="?edit=<?php echo $service['service_id']; ?>" onclick="editService(<?php echo json_encode($service); ?>)">Edit</a>
+                        <a href="?delete=<?php echo $service['service_id']; ?>" onclick="return confirm('Are you sure you want to delete this service?');">Delete</a>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+function editService(service) {
+    document.getElementById('service_id').value = service.service_id;
+    document.getElementById('service_name').value = service.service_name;
+    document.getElementById('service_desc').value = service.service_desc;
+    document.getElementById('service_price').value = service.service_price;
+    document.getElementById('service_image').value = service.service_image;
+}
+</script>
+
+</body>
+</html>

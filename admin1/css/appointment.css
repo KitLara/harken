@@ -1,0 +1,68 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light background color */
+    color: #333; /* Dark text color */
+}
+
+/* Main container styles */
+.container {
+    max-width: auto-fit; /* Maximum width of the container */
+    margin: auto; /* Center the container */
+    padding: 20px; /* Padding around the container */
+    background-color: #ffffff; /* White background for the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Table styles */
+.table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+/* Table header styles */
+.table thead th {
+    background-color: #3C91E6; /* Blue background for the header */
+    color: #ffffff; /* White text for the header */
+    padding: 10px; /* Padding inside header cells */
+    text-align: left; /* Align header text to the left */
+}
+
+/* Table cell styles */
+.table tbody td {
+    padding: 10px; /* Padding inside data cells */
+    border: 1px solid #dee2e6; /* Light border around cells */
+    text-align: left; /* Align data text to the left */
+}
+
+/* Force left alignment for all table cells */
+.table th,
+.table td {
+    text-align: left !important; /* Ensure all text is left-aligned */
+}
+
+/* Status text styles */
+.table tbody tr td:nth-child(3) {
+    font-weight: bold; /* Bold text for status */
+}
+
+.table tbody tr td:nth-child(3):contains('Approved') {
+    color: green; /* Green color for approved status */
+}
+
+.table tbody tr td:nth-child(3):contains('Pending') {
+    color: orange; /* Orange color for pending status */
+}
+
+.table tbody tr td:nth-child(3):contains('Cancelled') {
+    color: red; /* Red color for cancelled status */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .table {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="./css/style.css">
+
+	<title>Transactions</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+<?php include("sidebar.php"); ?>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<?php include ("navbar.php"); ?>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+        <div class="container mt-5">
+            <h2 class="mb-4">List of Services</h2>
+            <ul class="list-group">
+                <li class="list-group-item">AUDIOMETRY</li>
+                <li class="list-group-item">SPEECH AUDIOMETRY</li>
+                <li class="list-group-item">IMPEDANCE AUDIOMETRY</li>
+                <li class="list-group-item">AIDED TEST</li>
+                <li class="list-group-item">OAE</li>
+                <li class="list-group-item">HEARING AID FITTING</li>
+                <li class="list-group-item">EARMOULD</li>
+                <li class="list-group-item">ABR</li>
+                <li class="list-group-item">CONDITIONED PLAY</li>
+                <li class="list-group-item">BOA</li>
+                <li class="list-group-item">VRA</li>
+            </ul>
+            <a href="transaction.php" class="btn btn-secondary mt-4">Back to Transactions</a>
+        </div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script src="./js/script.js"></script>
+</body>
+</html>
